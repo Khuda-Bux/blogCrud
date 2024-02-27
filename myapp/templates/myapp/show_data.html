@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show data</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+</head>
+<body>
+    <h1 class="rd">Blog show data</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{forms.as_p}}
+        <input type="submit" value="submit">
+    </form>
+<h1>Search From Here</h1>
+<form method="GET" action="{% url 'show' %}"> <!-- Specify the action URL -->
+    <input type="text" name="servicename" value=""/>
+    <input type="submit" value="search"/>
+</form>
+<!-- <form method="get">
+ <input type="text" name="servicename" value=""/>
+ <input type="submit" value="search"/>
+</form> -->
+    {% for x in form %}
+        <div class="row">
+            <p>Id: {{ x.id }}</p>
+ 
+            <p>Title: {{ x.title }}</p>
+            <p>Description: {{ x.dis }}</p>
+            <a href="{% url 'update' x.id %}">Edit</a>
+            <br><br>
+            <form action="{% url 'delete' x.id %}" method="POST"  class="d-inline" >
+                {% csrf_token %}
+               <input type="submit" class="btn btn-danger" value="Delete">
+             </form>
+        </div>
+    {% endfor %}
+    
+</body>
+</html>
